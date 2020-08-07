@@ -130,7 +130,7 @@ const view = {
       .then(response => {
         const user = response.data
         userName.innerText = `${user.name} ${user.surname}`
-        userAvatar.innerHTML = `<img src="${user.avatar}" class="h-100 d-inline-block">`
+        userAvatar.innerHTML = `<img src="${user.avatar}" class="card-img-top">`
         let region = model.switchRegionName(user.region)
         userInfo.innerHTML =
           `<p><strong>Age: </strong>${user.age}</p>
@@ -138,8 +138,8 @@ const view = {
           <p><strong>Gender: </strong>${user.gender}</p>
           <p><strong>Region: </strong>${region}</p>
           <p><strong>Birthday: </strong>${user.birthday}</p>
-          <p><strong>Created at: </strong>${user.created_at.slice(1, 10)}</p>
-          <p><strong>Updated at: </strong>${user.updated_at.slice(1, 10)}</p>`
+          <p><strong>Created at: </strong>${user.created_at.slice(0, 10)}</p>
+          <p><strong>Updated at: </strong>${user.updated_at.slice(0, 10)}</p>`
       })
       .catch((err) => console.log(err))
   },
@@ -217,7 +217,7 @@ const controller = {
     })
     // 更換每頁資料數量
     showHowManyUsersPerPageDropdownList.addEventListener("click", function onNumberOfUserPerPageChoose() {
-      if (event.target.matches(".dropdown-Item")) {
+      if (event.target.matches(".dropdown-item")) {
         document.getElementById("numberOfUser").innerHTML = event.target.id
         model.userPerPage = Number(event.target.id)
         model.currentPage = 1
@@ -313,16 +313,9 @@ const controller = {
       model.currentGender = ""
       model.currentRegion = ""
       view.renderCardViewMode(controller.getUsersByPage(1))
-      view.renderRegionDropdownList(model.users)
       view.renderPaginator(model.users.length)
     })
   }
 }
 
-
-
-
 controller.initialize()
-
-
-
